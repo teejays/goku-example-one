@@ -1,0 +1,128 @@
+
+table tb_medicine:
+  check_constraints:
+    chk_medicine__name__empty_str:
+      columns:
+      - name
+      expression: (name <> ''::text)
+    chk_medicine_mode_of_delivery_enum:
+      columns:
+      - mode_of_delivery
+      expression: (mode_of_delivery = ANY (ARRAY['Tablet'::text, 'Syrup'::text, 'Capsule'::text,
+        'Injection'::text]))
+
+  columns:
+  - id:
+      not_null: true
+      type: uuid
+
+  - name:
+      not_null: true
+      type: text
+
+  - company_id:
+      not_null: true
+      type: uuid
+
+  - primary_ingredient__drug_id:
+      not_null: true
+      type: uuid
+
+  - primary_ingredient__is_primary_ingredient:
+      not_null: true
+      type: boolean
+
+  - mode_of_delivery:
+      not_null: true
+      type: text
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_medicine_id:
+      columns:
+      - id
+  foreign_keys:
+    fk_medicine_pharmaceutical_company:
+      columns:
+      - company_id
+      on_delete: cascade
+      references:
+        table: tb_pharmaceutical_company
+        columns:
+        - id
+
+    fk_medicine_drug:
+      columns:
+      - primary_ingredient__drug_id
+      on_delete: cascade
+      references:
+        table: tb_drug
+        columns:
+        - id
+
+
+table tb_medicine_ingredients:
+
+  columns:
+  - parent_id:
+      not_null: true
+      type: uuid
+
+  - id:
+      not_null: true
+      type: uuid
+
+  - drug_id:
+      not_null: true
+      type: uuid
+
+  - is_primary_ingredient:
+      not_null: true
+      type: boolean
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_medicine_ingredients_id:
+      columns:
+      - id
+  foreign_keys:
+    fk_medicine_ingredients_drug:
+      columns:
+      - drug_id
+      on_delete: cascade
+      references:
+        table: tb_drug
+        columns:
+        - id
+
+    fk_medicine_ingredients_medicine:
+      columns:
+      - parent_id
+      on_delete: cascade
+      references:
+        table: tb_medicine
+        columns:
+        - id
+

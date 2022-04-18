@@ -1,0 +1,50 @@
+
+table tb_product:
+
+  columns:
+  - id:
+      not_null: true
+      type: uuid
+
+  - medicine_id:
+      not_null: true
+      type: uuid
+
+  - mass:
+      not_null: true
+      type: integer
+
+  - count:
+      not_null: true
+      type: integer
+
+  - name:
+      not_null: false
+      type: text
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_product_id:
+      columns:
+      - id
+  foreign_keys:
+    fk_product_medicine:
+      columns:
+      - medicine_id
+      on_delete: cascade
+      references:
+        table: tb_medicine
+        columns:
+        - id
+

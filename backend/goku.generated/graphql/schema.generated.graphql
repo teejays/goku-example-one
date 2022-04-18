@@ -1,0 +1,728 @@
+# Time is an RFC3339 timestamp.
+scalar Time
+
+# Date is YYYY-MM-DD format date.
+scalar Date
+
+scalar UUID
+
+# Filter Operators
+enum FilterOperator {
+    EQUAL
+    NOT_EQUAL
+    IN
+    GREATER_THAN
+    GREATER_THAN_EQUAL
+    LESS_THAN
+    LESS_THAN_EQUAL
+    LIKE
+    NOT_LIKE
+    IS_NULL
+    IS_NOT_NULL
+}
+
+input StringCondition {
+    Op: FilterOperator!
+    Values: [String!]!
+}
+input IntCondition {
+    Op: FilterOperator!
+    Values: [Int!]!
+}
+input FloatCondition {
+    Op: FilterOperator!
+    Values: [Float!]!
+}
+input BoolCondition {
+    Op: FilterOperator!
+    Values: [Boolean!]!
+}
+input UUIDCondition {
+    Op: FilterOperator!
+    Values: [ID!]!
+}
+input TimestampCondition {
+    Op: FilterOperator!
+    Values: [Time!]!
+}
+input DateCondition {
+    Op: FilterOperator!
+    Values: [Date!]!
+}
+
+# Methods
+type Query {
+    authenticateUser(req: AuthenticateRequest!): AuthenticateResponse!
+    getDrug(req: GetDrugRequest!): Drug!
+    listDrug(req: ListDrugRequest!): ListDrugResponse!
+    queryByTextDrug(req: QueryByTextDrugRequest!): ListDrugResponse!
+    getMedicine(req: GetMedicineRequest!): Medicine!
+    listMedicine(req: ListMedicineRequest!): ListMedicineResponse!
+    queryByTextMedicine(req: QueryByTextMedicineRequest!): ListMedicineResponse!
+    getPharmaceuticalCompany(req: GetPharmaceuticalCompanyRequest!): PharmaceuticalCompany!
+    listPharmaceuticalCompany(req: ListPharmaceuticalCompanyRequest!): ListPharmaceuticalCompanyResponse!
+    queryByTextPharmaceuticalCompany(req: QueryByTextPharmaceuticalCompanyRequest!): ListPharmaceuticalCompanyResponse!
+    getProduct(req: GetProductRequest!): Product!
+    listProduct(req: ListProductRequest!): ListProductResponse!
+    queryByTextProduct(req: QueryByTextProductRequest!): ListProductResponse!
+    getUser(req: GetUserRequest!): User!
+    listUser(req: ListUserRequest!): ListUserResponse!
+    queryByTextUser(req: QueryByTextUserRequest!): ListUserResponse!
+}
+
+type Mutation {
+    registerUser(req: RegisterUserRequest!): AuthenticateResponse!
+    addDrug(req: DrugInput!): Drug!
+    updateDrug(req: UpdateDrugRequest!): UpdateDrugResponse!
+    addMedicine(req: MedicineInput!): Medicine!
+    updateMedicine(req: UpdateMedicineRequest!): UpdateMedicineResponse!
+    addPharmaceuticalCompany(req: PharmaceuticalCompanyInput!): PharmaceuticalCompany!
+    updatePharmaceuticalCompany(req: UpdatePharmaceuticalCompanyRequest!): UpdatePharmaceuticalCompanyResponse!
+    addProduct(req: ProductInput!): Product!
+    updateProduct(req: UpdateProductRequest!): UpdateProductResponse!
+    addUser(req: UserInput!): User!
+    updateUser(req: UpdateUserRequest!): UpdateUserResponse!
+}
+
+# Inputs
+
+input AddressInput {
+    Line1: String!
+    Line2: String
+    City: String!
+    Province: PakistaniProvince!
+    PostalCode: String
+    Country: Country!
+}
+
+input AuthenticateRequest {
+    Email: String!
+    Password: String!
+}
+
+input ContactInput {
+    Name: PersonNameInput!
+    Email: String!
+    Address: AddressInput!
+}
+
+input DrugInput {
+    Name: String!
+}
+
+input IngredientInput {
+    DrugID: ID!
+    IsPrimaryIngredient: Boolean!
+}
+
+input MedicineInput {
+    Name: String!
+    CompanyID: ID!
+    PrimaryIngredient: IngredientInput!
+    Ingredients: [IngredientInput!]!
+    ModeOfDelivery: ModeOfDelivery!
+}
+
+input PersonNameInput {
+    First: String!
+    MiddleInitial: String
+    Last: String!
+}
+
+input PharmaceuticalCompanyInput {
+    Name: String!
+}
+
+input PhoneNumberInput {
+    CountryCode: Int!
+    Number: String!
+    Extension: String
+}
+
+input ProductInput {
+    MedicineID: ID!
+    Mass: Int!
+    Count: Int!
+    Name: String
+}
+
+input RegisterUserRequest {
+    Email: String!
+    Name: PersonNameInput!
+    PhoneNumber: PhoneNumberInput!
+    Password: String!
+}
+
+input UserInput {
+    Name: PersonNameInput!
+    Email: String!
+    PhoneNumber: PhoneNumberInput
+}
+
+input AddressFilter {
+    ParentID: UUIDCondition
+    ID: UUIDCondition
+    Line1: StringCondition
+    Line2: StringCondition
+    City: StringCondition
+    Province: PakistaniProvinceCondition
+    PostalCode: StringCondition
+    Country: CountryCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [AddressFilter!]!
+    Or: [AddressFilter!]!
+}
+
+input ContactFilter {
+    ParentID: UUIDCondition
+    ID: UUIDCondition
+    Name: PersonNameFilter
+    Email: StringCondition
+    Address: AddressFilter
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [ContactFilter!]!
+    Or: [ContactFilter!]!
+}
+
+input DrugFilter {
+    ID: UUIDCondition
+    Name: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [DrugFilter!]!
+    Or: [DrugFilter!]!
+}
+
+input IngredientFilter {
+    ParentID: UUIDCondition
+    ID: UUIDCondition
+    DrugID: UUIDCondition
+    IsPrimaryIngredient: BoolCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [IngredientFilter!]!
+    Or: [IngredientFilter!]!
+}
+
+input MedicineFilter {
+    ID: UUIDCondition
+    Name: StringCondition
+    CompanyID: UUIDCondition
+    PrimaryIngredient: IngredientFilter
+    HavingIngredients: IngredientFilter
+    ModeOfDelivery: ModeOfDeliveryCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [MedicineFilter!]!
+    Or: [MedicineFilter!]!
+}
+
+input PersonNameFilter {
+    ParentID: UUIDCondition
+    ID: UUIDCondition
+    First: StringCondition
+    MiddleInitial: StringCondition
+    Last: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [PersonNameFilter!]!
+    Or: [PersonNameFilter!]!
+}
+
+input PharmaceuticalCompanyFilter {
+    ID: UUIDCondition
+    Name: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [PharmaceuticalCompanyFilter!]!
+    Or: [PharmaceuticalCompanyFilter!]!
+}
+
+input PhoneNumberFilter {
+    ParentID: UUIDCondition
+    ID: UUIDCondition
+    CountryCode: IntCondition
+    Number: StringCondition
+    Extension: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [PhoneNumberFilter!]!
+    Or: [PhoneNumberFilter!]!
+}
+
+input ProductFilter {
+    ID: UUIDCondition
+    MedicineID: UUIDCondition
+    Mass: IntCondition
+    Count: IntCondition
+    Name: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [ProductFilter!]!
+    Or: [ProductFilter!]!
+}
+
+input UserFilter {
+    ID: UUIDCondition
+    Name: PersonNameFilter
+    Email: StringCondition
+    PhoneNumber: PhoneNumberFilter
+    PasswordHash: StringCondition
+    CreatedAt: TimestampCondition
+    UpdatedAt: TimestampCondition
+    DeletedAt: TimestampCondition
+    And: [UserFilter!]!
+    Or: [UserFilter!]!
+}
+
+input UpdateDrugRequest {
+    Object: DrugInput!
+    Fields: [DrugField!]!
+    ExcludeFields: [DrugField!]!
+}
+
+input GetDrugRequest {
+    ID: ID!
+}
+
+input ListDrugRequest {
+    Filter: DrugFilter!
+}
+
+input QueryByTextDrugRequest {
+    QueryText: String!
+}
+
+input UpdateMedicineRequest {
+    Object: MedicineInput!
+    Fields: [MedicineField!]!
+    ExcludeFields: [MedicineField!]!
+}
+
+input GetMedicineRequest {
+    ID: ID!
+}
+
+input ListMedicineRequest {
+    Filter: MedicineFilter!
+}
+
+input QueryByTextMedicineRequest {
+    QueryText: String!
+}
+
+input UpdatePharmaceuticalCompanyRequest {
+    Object: PharmaceuticalCompanyInput!
+    Fields: [PharmaceuticalCompanyField!]!
+    ExcludeFields: [PharmaceuticalCompanyField!]!
+}
+
+input GetPharmaceuticalCompanyRequest {
+    ID: ID!
+}
+
+input ListPharmaceuticalCompanyRequest {
+    Filter: PharmaceuticalCompanyFilter!
+}
+
+input QueryByTextPharmaceuticalCompanyRequest {
+    QueryText: String!
+}
+
+input UpdateProductRequest {
+    Object: ProductInput!
+    Fields: [ProductField!]!
+    ExcludeFields: [ProductField!]!
+}
+
+input GetProductRequest {
+    ID: ID!
+}
+
+input ListProductRequest {
+    Filter: ProductFilter!
+}
+
+input QueryByTextProductRequest {
+    QueryText: String!
+}
+
+input UpdateUserRequest {
+    Object: UserInput!
+    Fields: [UserField!]!
+    ExcludeFields: [UserField!]!
+}
+
+input GetUserRequest {
+    ID: ID!
+}
+
+input ListUserRequest {
+    Filter: UserFilter!
+}
+
+input QueryByTextUserRequest {
+    QueryText: String!
+}
+
+# Types
+
+type Address {
+    Line1: String!
+    Line2: String
+    City: String!
+    Province: PakistaniProvince!
+    PostalCode: String
+    Country: Country!
+}
+
+type AuthenticateResponse {
+    Token: String!
+}
+
+type Contact {
+    Name: PersonName!
+    Email: String!
+    Address: Address!
+}
+
+type Drug {
+    ID: ID!
+    Name: String!
+    CreatedAt: Time!
+    UpdatedAt: Time!
+    DeletedAt: Time
+}
+
+type Ingredient {
+    DrugID: ID!
+    IsPrimaryIngredient: Boolean!
+}
+
+type Medicine {
+    ID: ID!
+    Name: String!
+    CompanyID: ID!
+    PrimaryIngredient: Ingredient!
+    Ingredients: [Ingredient!]!
+    ModeOfDelivery: ModeOfDelivery!
+    CreatedAt: Time!
+    UpdatedAt: Time!
+    DeletedAt: Time
+}
+
+type PersonName {
+    First: String!
+    MiddleInitial: String
+    Last: String!
+}
+
+type PharmaceuticalCompany {
+    ID: ID!
+    Name: String!
+    CreatedAt: Time!
+    UpdatedAt: Time!
+    DeletedAt: Time
+}
+
+type PhoneNumber {
+    CountryCode: Int!
+    Number: String!
+    Extension: String
+}
+
+type Product {
+    ID: ID!
+    MedicineID: ID!
+    Mass: Int!
+    Count: Int!
+    Name: String
+    CreatedAt: Time!
+    UpdatedAt: Time!
+    DeletedAt: Time
+}
+
+type User {
+    ID: ID!
+    Name: PersonName!
+    Email: String!
+    PhoneNumber: PhoneNumber
+    PasswordHash: String!
+    CreatedAt: Time!
+    UpdatedAt: Time!
+    DeletedAt: Time
+}
+
+type UpdateDrugResponse {
+    Object: Drug!
+}
+
+type ListDrugResponse {
+    Items: [Drug!]!
+    Count: Int!
+}
+
+type UpdateMedicineResponse {
+    Object: Medicine!
+}
+
+type ListMedicineResponse {
+    Items: [Medicine!]!
+    Count: Int!
+}
+
+type UpdatePharmaceuticalCompanyResponse {
+    Object: PharmaceuticalCompany!
+}
+
+type ListPharmaceuticalCompanyResponse {
+    Items: [PharmaceuticalCompany!]!
+    Count: Int!
+}
+
+type UpdateProductResponse {
+    Object: Product!
+}
+
+type ListProductResponse {
+    Items: [Product!]!
+    Count: Int!
+}
+
+type UpdateUserResponse {
+    Object: User!
+}
+
+type ListUserResponse {
+    Items: [User!]!
+    Count: Int!
+}
+
+# Enums
+enum Country {
+    PAKISTAN
+    USA
+}
+
+input CountryCondition {
+    Op: FilterOperator!
+    Values: [Country!]!
+}
+
+enum ModeOfDelivery {
+    TABLET
+    SYRUP
+    CAPSULE
+    INJECTION
+}
+
+input ModeOfDeliveryCondition {
+    Op: FilterOperator!
+    Values: [ModeOfDelivery!]!
+}
+
+enum PakistaniProvince {
+    PUNJAB
+    SINDH
+    KHYBER_PAKHTOONKHWA
+    BALOCHISTAN
+    GILGIT_BALTISTAN
+    AZAD_KASHMIR
+}
+
+input PakistaniProvinceCondition {
+    Op: FilterOperator!
+    Values: [PakistaniProvince!]!
+}
+
+enum AddressField {
+    PARENT_ID
+    ID
+    LINE_1
+    LINE_2
+    CITY
+    PROVINCE
+    POSTAL_CODE
+    COUNTRY
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input AddressFieldCondition {
+    Op: FilterOperator!
+    Values: [AddressField!]!
+}
+
+enum ContactField {
+    PARENT_ID
+    ID
+    NAME
+    NAME__FIRST
+    NAME__MIDDLE_INITIAL
+    NAME__LAST
+    EMAIL
+    ADDRESS
+    ADDRESS__LINE_1
+    ADDRESS__LINE_2
+    ADDRESS__CITY
+    ADDRESS__PROVINCE
+    ADDRESS__POSTAL_CODE
+    ADDRESS__COUNTRY
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input ContactFieldCondition {
+    Op: FilterOperator!
+    Values: [ContactField!]!
+}
+
+enum DrugField {
+    ID
+    NAME
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input DrugFieldCondition {
+    Op: FilterOperator!
+    Values: [DrugField!]!
+}
+
+enum IngredientField {
+    PARENT_ID
+    ID
+    DRUG_ID
+    IS_PRIMARY_INGREDIENT
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input IngredientFieldCondition {
+    Op: FilterOperator!
+    Values: [IngredientField!]!
+}
+
+enum MedicineField {
+    ID
+    NAME
+    COMPANY_ID
+    PRIMARY_INGREDIENT
+    PRIMARY_INGREDIENT__DRUG_ID
+    PRIMARY_INGREDIENT__IS_PRIMARY_INGREDIENT
+    INGREDIENTS
+    INGREDIENTS__PARENT_ID
+    INGREDIENTS__ID
+    INGREDIENTS__DRUG_ID
+    INGREDIENTS__IS_PRIMARY_INGREDIENT
+    INGREDIENTS__CREATED_AT
+    INGREDIENTS__UPDATED_AT
+    INGREDIENTS__DELETED_AT
+    MODE_OF_DELIVERY
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input MedicineFieldCondition {
+    Op: FilterOperator!
+    Values: [MedicineField!]!
+}
+
+enum PersonNameField {
+    PARENT_ID
+    ID
+    FIRST
+    MIDDLE_INITIAL
+    LAST
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input PersonNameFieldCondition {
+    Op: FilterOperator!
+    Values: [PersonNameField!]!
+}
+
+enum PharmaceuticalCompanyField {
+    ID
+    NAME
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input PharmaceuticalCompanyFieldCondition {
+    Op: FilterOperator!
+    Values: [PharmaceuticalCompanyField!]!
+}
+
+enum PhoneNumberField {
+    PARENT_ID
+    ID
+    COUNTRY_CODE
+    NUMBER
+    EXTENSION
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input PhoneNumberFieldCondition {
+    Op: FilterOperator!
+    Values: [PhoneNumberField!]!
+}
+
+enum ProductField {
+    ID
+    MEDICINE_ID
+    MASS
+    COUNT
+    NAME
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input ProductFieldCondition {
+    Op: FilterOperator!
+    Values: [ProductField!]!
+}
+
+enum UserField {
+    ID
+    NAME
+    NAME__FIRST
+    NAME__MIDDLE_INITIAL
+    NAME__LAST
+    EMAIL
+    PHONE_NUMBER
+    PHONE_NUMBER__COUNTRY_CODE
+    PHONE_NUMBER__NUMBER
+    PHONE_NUMBER__EXTENSION
+    PASSWORD_HASH
+    CREATED_AT
+    UPDATED_AT
+    DELETED_AT
+}
+
+input UserFieldCondition {
+    Op: FilterOperator!
+    Values: [UserField!]!
+}

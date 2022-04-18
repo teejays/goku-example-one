@@ -1,0 +1,8 @@
+schema public:
+  description: General Public Schema
+  owner: postgres
+  privileges:
+  - PUBLIC:
+    - all
+  - postgres:
+    - all

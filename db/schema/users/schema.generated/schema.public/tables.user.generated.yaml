@@ -1,0 +1,69 @@
+
+table tb_user:
+  check_constraints:
+    chk_user__name__first__empty_str:
+      columns:
+      - name__first
+      expression: (name__first <> ''::text)
+    chk_user__name__last__empty_str:
+      columns:
+      - name__last
+      expression: (name__last <> ''::text)
+    chk_user__password_hash__empty_str:
+      columns:
+      - password_hash
+      expression: (password_hash <> ''::text)
+
+  columns:
+  - id:
+      not_null: true
+      type: uuid
+
+  - name__first:
+      not_null: true
+      type: text
+
+  - name__middle_initial:
+      not_null: false
+      type: text
+
+  - name__last:
+      not_null: true
+      type: text
+
+  - email:
+      not_null: true
+      type: text
+      default: "'no@email.com'::text"
+  - phone_number__country_code:
+      not_null: false
+      type: integer
+
+  - phone_number__number:
+      not_null: false
+      type: text
+
+  - phone_number__extension:
+      not_null: false
+      type: text
+
+  - password_hash:
+      not_null: true
+      type: text
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_user_id:
+      columns:
+      - id

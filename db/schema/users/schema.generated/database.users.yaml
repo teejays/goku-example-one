@@ -1,0 +1,3 @@
+schema public:
+  schema: schema.public.yaml
+  table user: schema.public/tables.user.generated.yaml

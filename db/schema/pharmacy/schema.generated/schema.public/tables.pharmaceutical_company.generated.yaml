@@ -1,0 +1,33 @@
+
+table tb_pharmaceutical_company:
+  check_constraints:
+    chk_pharmaceutical_company__name__empty_str:
+      columns:
+      - name
+      expression: (name <> ''::text)
+
+  columns:
+  - id:
+      not_null: true
+      type: uuid
+
+  - name:
+      not_null: true
+      type: text
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_pharmaceutical_company_id:
+      columns:
+      - id

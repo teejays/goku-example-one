@@ -1,0 +1,7 @@
+schema public:
+  schema: schema.public.yaml
+  table drug: schema.public/tables.drug.generated.yaml
+  table medicine: schema.public/tables.medicine.generated.yaml
+  table medicine_ingredients: schema.public/tables.medicine.generated.yaml
+  table pharmaceutical_company: schema.public/tables.pharmaceutical_company.generated.yaml
+  table product: schema.public/tables.product.generated.yaml

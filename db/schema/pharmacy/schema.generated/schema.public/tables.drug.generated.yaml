@@ -1,0 +1,33 @@
+
+table tb_drug:
+  check_constraints:
+    chk_drug__name__empty_str:
+      columns:
+      - name
+      expression: (name <> ''::text)
+
+  columns:
+  - id:
+      not_null: true
+      type: uuid
+
+  - name:
+      not_null: true
+      type: text
+
+  - created_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - updated_at:
+      not_null: true
+      type: timestamp without time zone
+
+  - deleted_at:
+      not_null: false
+      type: timestamp without time zone
+
+  primary_key:
+    pk_drug_id:
+      columns:
+      - id

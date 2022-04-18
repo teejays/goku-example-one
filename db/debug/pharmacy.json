@@ -1,0 +1,1175 @@
+{
+ "Name": "pharmacy",
+ "Schemas": [
+  {
+   "Name": "public",
+   "Description": "General Public Schema",
+   "Owner": "postgres",
+   "UserPrivileges": [
+    {
+     "User": "PUBLIC",
+     "Privileges": [
+      "all"
+     ]
+    },
+    {
+     "User": "postgres",
+     "Privileges": [
+      "all"
+     ]
+    }
+   ],
+   "Tables": [
+    {
+     "Name": "medicine",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "name",
+       "Type": {
+        "Name": "string",
+        "Kind": "Primitive",
+        "SqlType": "text",
+        "GolangType": "string",
+        "TypescriptType": "string",
+        "GolangArrayTypeForSql": "pq.StringArray",
+        "FilterName": "string_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "company_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_medicine_pharmaceutical_company",
+       "ColumnNames": [
+        "company_id"
+       ],
+       "References": {
+        "TableName": "pharmaceutical_company",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "medicine_drugs_map",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "medicine_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "drug_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_medicine_drugs_map_medicine",
+       "ColumnNames": [
+        "medicine_id"
+       ],
+       "References": {
+        "TableName": "medicine",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      },
+      {
+       "Name": "fk_medicine_drugs_map_drug",
+       "ColumnNames": [
+        "drug_id"
+       ],
+       "References": {
+        "TableName": "drug",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "drug",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "name",
+       "Type": {
+        "Name": "string",
+        "Kind": "Primitive",
+        "SqlType": "text",
+        "GolangType": "string",
+        "TypescriptType": "string",
+        "GolangArrayTypeForSql": "pq.StringArray",
+        "FilterName": "string_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": null,
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "pharmaceutical_company",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "name",
+       "Type": {
+        "Name": "string",
+        "Kind": "Primitive",
+        "SqlType": "text",
+        "GolangType": "string",
+        "TypescriptType": "string",
+        "GolangArrayTypeForSql": "pq.StringArray",
+        "FilterName": "string_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": null,
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "pharmaceutical_company_distributors_map",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "pharmaceutical_company_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "distributor_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_pharmaceutical_company_distributors_map_pharmaceutical_company",
+       "ColumnNames": [
+        "pharmaceutical_company_id"
+       ],
+       "References": {
+        "TableName": "pharmaceutical_company",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      },
+      {
+       "Name": "fk_pharmaceutical_company_distributors_map_distributor",
+       "ColumnNames": [
+        "distributor_id"
+       ],
+       "References": {
+        "TableName": "distributor",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "distributor",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "name",
+       "Type": {
+        "Name": "string",
+        "Kind": "Primitive",
+        "SqlType": "text",
+        "GolangType": "string",
+        "TypescriptType": "string",
+        "GolangArrayTypeForSql": "pq.StringArray",
+        "FilterName": "string_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "contact",
+       "Type": {
+        "Name": "person_contact",
+        "Kind": "Vector",
+        "SqlType": "text",
+        "GolangType": "vector.PersonContact",
+        "TypescriptType": "PersonContact",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "person_contact_filter",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": null,
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "distributor_pharmaceutical_companies_map",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "distributor_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "pharmaceutical_company_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_distributor_pharmaceutical_companies_map_distributor",
+       "ColumnNames": [
+        "distributor_id"
+       ],
+       "References": {
+        "TableName": "distributor",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      },
+      {
+       "Name": "fk_distributor_pharmaceutical_companies_map_pharmaceutical_company",
+       "ColumnNames": [
+        "pharmaceutical_company_id"
+       ],
+       "References": {
+        "TableName": "pharmaceutical_company",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "purchase",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "date",
+       "Type": {
+        "Name": "date",
+        "Kind": "Scalar",
+        "SqlType": "date",
+        "GolangType": "scalar.Date",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "date_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "distributor_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "total_price",
+       "Type": {
+        "Name": "money",
+        "Kind": "Scalar",
+        "SqlType": "money",
+        "GolangType": "scalar.Money",
+        "TypescriptType": "Money",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "money_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_purchase_distributor",
+       "ColumnNames": [
+        "distributor_id"
+       ],
+       "References": {
+        "TableName": "distributor",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "purchase_item",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "medicine_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": true,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "quantity",
+       "Type": {
+        "Name": "int",
+        "Kind": "Primitive",
+        "SqlType": "integer",
+        "GolangType": "int",
+        "TypescriptType": "number",
+        "GolangArrayTypeForSql": "pq.Int64Array",
+        "FilterName": "int_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "price_per_unit",
+       "Type": {
+        "Name": "money",
+        "Kind": "Scalar",
+        "SqlType": "money",
+        "GolangType": "scalar.Money",
+        "TypescriptType": "Money",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "money_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_purchase_item_medicine",
+       "ColumnNames": [
+        "medicine_id"
+       ],
+       "References": {
+        "TableName": "medicine",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    },
+    {
+     "Name": "purchase_items_map",
+     "Columns": [
+      {
+       "Name": "id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "purchase_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "purchase_item_id",
+       "Type": {
+        "Name": "uuid",
+        "Kind": "Primitive",
+        "SqlType": "uuid",
+        "GolangType": "uuid.UUID",
+        "TypescriptType": "UUID",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "uuid_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": true,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "created_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      },
+      {
+       "Name": "updated_at",
+       "Type": {
+        "Name": "timestamp",
+        "Kind": "Primitive",
+        "SqlType": "timestamp without time zone",
+        "GolangType": "time.Time",
+        "TypescriptType": "Date",
+        "GolangArrayTypeForSql": "",
+        "FilterName": "timestamp_condition",
+        "IsGolangNullable": false
+       },
+       "IsNullable": false,
+       "IsArray": false,
+       "Default": "",
+       "IsForeignObjectId": false,
+       "IsSubobjectId": false
+      }
+     ],
+     "PrimaryKeyColumns": [
+      "id"
+     ],
+     "ForeignKeys": [
+      {
+       "Name": "fk_purchase_items_map_purchase",
+       "ColumnNames": [
+        "purchase_id"
+       ],
+       "References": {
+        "TableName": "purchase",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      },
+      {
+       "Name": "fk_purchase_items_map_purchase_item",
+       "ColumnNames": [
+        "purchase_item_id"
+       ],
+       "References": {
+        "TableName": "purchase_item",
+        "ColumnNames": [
+         "id"
+        ]
+       }
+      }
+     ],
+     "Triggers": null,
+     "Owner": ""
+    }
+   ]
+  }
+ ]
+}
