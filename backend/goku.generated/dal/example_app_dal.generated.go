@@ -8,11 +8,11 @@ import (
 	_ "github.com/doug-martin/goqu/v9/dialect/postgres" // required for 'postgres' dialect
 
 	"github.com/teejays/clog"
-	"github.com/teejays/goku/generator/external/client/db"
-	dalutil "github.com/teejays/goku/generator/external/dalutil"
-	filterlib "github.com/teejays/goku/generator/external/filter"
+	"github.com/teejays/goku-util/client/db"
+	dalutil "github.com/teejays/goku-util/dalutil"
+	filterlib "github.com/teejays/goku-util/filter"
 
-	types_global "github.com/teejays/goku/example/backend/goku.generated/types"
+	types_global "github.com/teejays/goku-example-one/backend/goku.generated/types"
 )
 
 // ExampleAppAppDAL encapsulates DAL methods for types that fall under ExampleApp

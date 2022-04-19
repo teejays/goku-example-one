@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	filterlib "github.com/teejays/goku/generator/external/filter"
-	"github.com/teejays/goku/generator/external/scalars"
-	"github.com/teejays/goku/generator/lib/naam"
-	"github.com/teejays/goku/generator/lib/panics"
+	filterlib "github.com/teejays/goku-util/filter"
+	"github.com/teejays/goku-util/naam"
+	"github.com/teejays/goku-util/panics"
+	"github.com/teejays/goku-util/scalars"
 )
 
 // Drug: <comments>

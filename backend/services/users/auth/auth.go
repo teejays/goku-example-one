@@ -9,12 +9,12 @@ import (
 
 	"github.com/teejays/clog"
 	"github.com/teejays/go-jwt"
-	"github.com/teejays/goku/generator/external/scalars"
-	"github.com/teejays/goku/generator/lib/errutil"
+	"github.com/teejays/goku-util/errutil"
+	"github.com/teejays/goku-util/scalars"
 	api "github.com/teejays/gopi"
 
-	user_types "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
-	"github.com/teejays/goku/generator/external/ctxutil"
+	user_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
+	"github.com/teejays/goku-util/ctxutil"
 )
 
 func getJWTSecret() ([]byte, error) {

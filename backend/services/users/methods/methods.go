@@ -7,15 +7,15 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/teejays/goku/generator/external/client/db"
-	"github.com/teejays/goku/generator/external/filter"
-	"github.com/teejays/goku/generator/lib/errutil"
-	"github.com/teejays/goku/generator/lib/panics"
+	"github.com/teejays/goku-util/client/db"
+	"github.com/teejays/goku-util/errutil"
+	"github.com/teejays/goku-util/filter"
+	"github.com/teejays/goku-util/panics"
 
-	"github.com/teejays/goku/example/backend/services/users/auth"
-	types_users "github.com/teejays/goku/example/backend/services/users/goku.generated/types"
-	dal_user "github.com/teejays/goku/example/backend/services/users/user/goku.generated/dal"
-	types_user "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	"github.com/teejays/goku-example-one/backend/services/users/auth"
+	types_users "github.com/teejays/goku-example-one/backend/services/users/goku.generated/types"
+	dal_user "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/dal"
+	types_user "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 func AuthenticateUser(ctx context.Context, req types_users.AuthenticateRequest) (types_users.AuthenticateResponse, error) {

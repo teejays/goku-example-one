@@ -1,7 +1,7 @@
 package users_types
 
 import (
-	example_app_types "github.com/teejays/goku/example/backend/goku.generated/types"
+	example_app_types "github.com/teejays/goku-example-one/backend/goku.generated/types"
 )
 
 // AuthenticateRequest: <comments>

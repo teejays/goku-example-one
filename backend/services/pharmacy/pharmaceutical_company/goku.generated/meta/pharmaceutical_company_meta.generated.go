@@ -7,13 +7,13 @@ import (
 	"time"
 
 	"github.com/teejays/clog"
-	"github.com/teejays/goku/generator/external/client/db"
-	"github.com/teejays/goku/generator/external/dalutil"
-	"github.com/teejays/goku/generator/external/scalars"
-	"github.com/teejays/goku/generator/external/types"
-	"github.com/teejays/goku/generator/lib/naam"
+	"github.com/teejays/goku-util/client/db"
+	"github.com/teejays/goku-util/dalutil"
+	"github.com/teejays/goku-util/naam"
+	"github.com/teejays/goku-util/scalars"
+	"github.com/teejays/goku-util/types"
 
-	entity_types "github.com/teejays/goku/example/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
+	entity_types "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
 )
 
 type PharmaceuticalCompanyEntityDALMeta struct {

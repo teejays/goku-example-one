@@ -6,10 +6,10 @@ import (
 
 	"github.com/teejays/clog"
 
-	"github.com/teejays/goku/generator/external/client/db"
+	"github.com/teejays/goku-util/client/db"
 
-	drug_dal "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/dal"
-	drug_types "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/types"
+	drug_dal "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/dal"
+	drug_types "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/types"
 )
 
 // DrugEntity_Server provides all the methods that fall under this entity

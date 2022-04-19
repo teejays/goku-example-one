@@ -6,10 +6,10 @@ import (
 
 	"github.com/teejays/clog"
 
-	"github.com/teejays/goku/generator/external/client/db"
+	"github.com/teejays/goku-util/client/db"
 
-	user_dal "github.com/teejays/goku/example/backend/services/users/user/goku.generated/dal"
-	user_types "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	user_dal "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/dal"
+	user_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 // UserEntity_Server provides all the methods that fall under this entity

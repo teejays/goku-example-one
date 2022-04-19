@@ -8,16 +8,16 @@ import (
 	"github.com/teejays/clog"
 	gopi "github.com/teejays/gopi"
 
-	"github.com/teejays/goku/generator/lib/errutil"
+	"github.com/teejays/goku-util/errutil"
 
-	drug_methods "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/methods"
-	drug_types "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/types"
-	medicine_methods "github.com/teejays/goku/example/backend/services/pharmacy/medicine/goku.generated/methods"
-	medicine_types "github.com/teejays/goku/example/backend/services/pharmacy/medicine/goku.generated/types"
-	pharmaceutical_company_methods "github.com/teejays/goku/example/backend/services/pharmacy/pharmaceutical_company/goku.generated/methods"
-	pharmaceutical_company_types "github.com/teejays/goku/example/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
-	product_methods "github.com/teejays/goku/example/backend/services/pharmacy/product/goku.generated/methods"
-	product_types "github.com/teejays/goku/example/backend/services/pharmacy/product/goku.generated/types"
+	drug_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/methods"
+	drug_types "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/types"
+	medicine_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/medicine/goku.generated/methods"
+	medicine_types "github.com/teejays/goku-example-one/backend/services/pharmacy/medicine/goku.generated/types"
+	pharmaceutical_company_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/methods"
+	pharmaceutical_company_types "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
+	product_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/product/goku.generated/methods"
+	product_types "github.com/teejays/goku-example-one/backend/services/pharmacy/product/goku.generated/types"
 )
 
 // GetPharmacyRoutes returns all the routes for this namespace

@@ -1,10 +1,10 @@
 package methods_pharmacy
 
 import (
-	drug_methods "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/methods"
-	medicine_methods "github.com/teejays/goku/example/backend/services/pharmacy/medicine/goku.generated/methods"
-	pharmaceutical_company_methods "github.com/teejays/goku/example/backend/services/pharmacy/pharmaceutical_company/goku.generated/methods"
-	product_methods "github.com/teejays/goku/example/backend/services/pharmacy/product/goku.generated/methods"
+	drug_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/methods"
+	medicine_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/medicine/goku.generated/methods"
+	pharmaceutical_company_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/methods"
+	product_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/product/goku.generated/methods"
 )
 
 // PharmacyService_Server provides all the service methods, including methods from its entities.

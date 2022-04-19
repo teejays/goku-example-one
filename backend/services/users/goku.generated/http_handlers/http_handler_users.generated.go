@@ -8,12 +8,12 @@ import (
 	"github.com/teejays/clog"
 	gopi "github.com/teejays/gopi"
 
-	"github.com/teejays/goku/generator/lib/errutil"
+	"github.com/teejays/goku-util/errutil"
 
-	users_methods "github.com/teejays/goku/example/backend/services/users/goku.generated/methods"
-	users_types "github.com/teejays/goku/example/backend/services/users/goku.generated/types"
-	user_methods "github.com/teejays/goku/example/backend/services/users/user/goku.generated/methods"
-	user_types "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	users_methods "github.com/teejays/goku-example-one/backend/services/users/goku.generated/methods"
+	users_types "github.com/teejays/goku-example-one/backend/services/users/goku.generated/types"
+	user_methods "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/methods"
+	user_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 // GetUsersRoutes returns all the routes for this namespace

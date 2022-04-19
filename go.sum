@@ -56,8 +56,8 @@ github.com/leodido/go-urn v1.2.0/go.mod h1:+8+nEpDfqqsY+g338gtMEUOtuK+4dEMhiQEgx
 github.com/leodido/go-urn v1.2.1 h1:BqpAaACuzVSgi/VLzGZIobT2z4v53pjosyNd9Yv6n/w=
 github.com/leodido/go-urn v1.2.1/go.mod h1:zt4jvISO2HfUBqxjfIshjdMTYS56ZS/qv49ictyFfxY=
 github.com/lib/pq v1.10.1/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
-github.com/lib/pq v1.10.4 h1:SO9z7FRPzA03QhHKJrH5BXA6HU1rS4V2nIVrrNC1iYk=
-github.com/lib/pq v1.10.4/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
+github.com/lib/pq v1.10.5 h1:J+gdV2cUmX7ZqL2B0lFcW0m+egaHC2V3lpO8nWxyYiQ=
+github.com/lib/pq v1.10.5/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/mattn/go-sqlite3 v1.14.7/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4A/KQRfk6bU=
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsKMEsNbx1VGcRFpLqf3715MtcvvzbA=
@@ -77,8 +77,6 @@ github.com/teejays/clog v0.0.0-20181107215916-71000d459f17 h1:RvR224w0psQD5ZVw4C
 github.com/teejays/clog v0.0.0-20181107215916-71000d459f17/go.mod h1:dcMcIXOmrb2E1KjdiZZfE+Kjh+G+SLfkmwv+uIc+3QU=
 github.com/teejays/go-jwt v0.0.0-20210430235938-89ac0d4dafca h1:P5zPY2C8u1tazAgqF4q+M5UBBD8vXLZ2kGqX4tMhnVs=
 github.com/teejays/go-jwt v0.0.0-20210430235938-89ac0d4dafca/go.mod h1:LaZvrmJrBXeRgNJirWgS7UDwzr3tFvAiEkqx1kN3j3A=
-github.com/teejays/goku v0.0.0-20220418184830-804d832fe344 h1:uXDxiGZJKYisCLcnwQR0RIUD7TrW4ow33Da4owYBorU=
-github.com/teejays/goku v0.0.0-20220418184830-804d832fe344/go.mod h1:dgHaJUEGER7+5WoIHPEa3fQeMikbwi5ZxTSgpcI4W3E=
 github.com/teejays/gopi v0.0.0-20200131141611-0e4731432dd4 h1:9SP5cAR1E3efFm6Y0b+BmsyRI+orqk98Cb+DXOfvulI=
 github.com/teejays/gopi v0.0.0-20200131141611-0e4731432dd4/go.mod h1:StAxPMC9cGiOUSRfGm7RVZIQT2UaLWzza14O5lCvBao=
 go.opentelemetry.io/otel v1.6.3/go.mod h1:7BgNga5fNlF/iZjG06hM3yofffp0ofKCDwSXx1GC4dI=

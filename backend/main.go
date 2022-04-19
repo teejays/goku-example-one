@@ -9,12 +9,12 @@ import (
 	"github.com/teejays/clog"
 	gopi "github.com/teejays/gopi"
 
-	"github.com/teejays/goku/generator/external/client/db"
+	"github.com/teejays/goku-util/client/db"
 
-	"github.com/teejays/goku/example/backend/gateway"
-	http_pharmacy "github.com/teejays/goku/example/backend/services/pharmacy/goku.generated/http_handlers"
-	"github.com/teejays/goku/example/backend/services/users/auth"
-	http_users "github.com/teejays/goku/example/backend/services/users/goku.generated/http_handlers"
+	"github.com/teejays/goku-example-one/backend/gateway"
+	http_pharmacy "github.com/teejays/goku-example-one/backend/services/pharmacy/goku.generated/http_handlers"
+	"github.com/teejays/goku-example-one/backend/services/users/auth"
+	http_users "github.com/teejays/goku-example-one/backend/services/users/goku.generated/http_handlers"
 )
 
 func main() {
@@ -86,7 +86,7 @@ func mainErr() error {
 		var addr = "127.0.0.1"
 		var port = 8081
 		clog.Warnf("Starting Gateway server at %s:%d", addr, port)
-		err := gateway.StartServer(addr, port, "example/backend/goku.generated/graphql/schema.generated.graphql")
+		err := gateway.StartServer(addr, port, "backend/goku.generated/graphql/schema.generated.graphql")
 		if err != nil {
 			log.Fatalf("HTTP Server Error: %s", err)
 		}

@@ -1,14 +1,14 @@
 package example_app_generics
 
 import (
-	typeslib "github.com/teejays/goku/generator/external/types"
+	typeslib "github.com/teejays/goku-util/types"
 
-	example_app_types "github.com/teejays/goku/example/backend/goku.generated/types"
-	drug_types "github.com/teejays/goku/example/backend/services/pharmacy/drug/goku.generated/types"
-	medicine_types "github.com/teejays/goku/example/backend/services/pharmacy/medicine/goku.generated/types"
-	pharmaceutical_company_types "github.com/teejays/goku/example/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
-	product_types "github.com/teejays/goku/example/backend/services/pharmacy/product/goku.generated/types"
-	user_types "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	example_app_types "github.com/teejays/goku-example-one/backend/goku.generated/types"
+	drug_types "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/types"
+	medicine_types "github.com/teejays/goku-example-one/backend/services/pharmacy/medicine/goku.generated/types"
+	pharmaceutical_company_types "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/types"
+	product_types "github.com/teejays/goku-example-one/backend/services/pharmacy/product/goku.generated/types"
+	user_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 type Entity interface {

@@ -7,14 +7,14 @@ import (
 	"time"
 
 	"github.com/teejays/clog"
-	"github.com/teejays/goku/generator/external/client/db"
-	"github.com/teejays/goku/generator/external/dalutil"
-	"github.com/teejays/goku/generator/external/scalars"
-	"github.com/teejays/goku/generator/external/types"
-	"github.com/teejays/goku/generator/lib/naam"
+	"github.com/teejays/goku-util/client/db"
+	"github.com/teejays/goku-util/dalutil"
+	"github.com/teejays/goku-util/naam"
+	"github.com/teejays/goku-util/scalars"
+	"github.com/teejays/goku-util/types"
 
-	app_types "github.com/teejays/goku/example/backend/goku.generated/types"
-	entity_types "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	app_types "github.com/teejays/goku-example-one/backend/goku.generated/types"
+	entity_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 type UserEntityDALMeta struct {

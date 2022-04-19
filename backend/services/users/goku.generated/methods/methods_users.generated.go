@@ -5,9 +5,9 @@ import (
 
 	"github.com/teejays/clog"
 
-	users_types "github.com/teejays/goku/example/backend/services/users/goku.generated/types"
-	custom_methods "github.com/teejays/goku/example/backend/services/users/methods"
-	user_methods "github.com/teejays/goku/example/backend/services/users/user/goku.generated/methods"
+	users_types "github.com/teejays/goku-example-one/backend/services/users/goku.generated/types"
+	custom_methods "github.com/teejays/goku-example-one/backend/services/users/methods"
+	user_methods "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/methods"
 )
 
 // UsersService_Server provides all the service methods, including methods from its entities.

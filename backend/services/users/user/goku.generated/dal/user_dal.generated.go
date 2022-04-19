@@ -8,16 +8,16 @@ import (
 	_ "github.com/doug-martin/goqu/v9/dialect/postgres" // required for 'postgres' dialect
 
 	"github.com/teejays/clog"
-	"github.com/teejays/goku/generator/external/client/db"
-	dalutil "github.com/teejays/goku/generator/external/dalutil"
-	filterlib "github.com/teejays/goku/generator/external/filter"
-	"github.com/teejays/goku/generator/lib/panics"
+	"github.com/teejays/goku-util/client/db"
+	dalutil "github.com/teejays/goku-util/dalutil"
+	filterlib "github.com/teejays/goku-util/filter"
+	"github.com/teejays/goku-util/panics"
 
-	scalars "github.com/teejays/goku/generator/external/scalars"
+	scalars "github.com/teejays/goku-util/scalars"
 
-	dal_service "github.com/teejays/goku/example/backend/services/users/goku.generated/dal"
-	meta_entity "github.com/teejays/goku/example/backend/services/users/user/goku.generated/meta"
-	types_entity "github.com/teejays/goku/example/backend/services/users/user/goku.generated/types"
+	dal_service "github.com/teejays/goku-example-one/backend/services/users/goku.generated/dal"
+	meta_entity "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/meta"
+	types_entity "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
 // UserEntityDAL encapsulates DAL methods for types that fall under User

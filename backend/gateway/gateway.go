@@ -7,7 +7,7 @@ import (
 
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	resolver "github.com/teejays/goku/example/backend/goku.generated/graphql"
+	resolver "github.com/teejays/goku-example-one/backend/goku.generated/graphql"
 )
 
 // type query struct{}
