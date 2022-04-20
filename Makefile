@@ -51,7 +51,7 @@ goku-generate:
 		--generator-dir="$(PATH_TO_GEN)" \
 		--models-json-file="$(PATH_TO_MODELS)" \
 		--app-root-dir="$(PATH_TO_APP)" \
-		--golang-root-dir="github.com/teejays/goku-example-one" \
+		--app-go-module-name="github.com/teejays/goku-example-one" \
 		--sql-yaml-schema=true --sql-yaml-schema-dir="$(PATH_TO_APP)/db/schema" \
 		--golang-type-definitions=true --golang-type-definitions-dir="$(PATH_TO_APP)/backend/types" \
 		--golang-meta-info=true --golang-meta-info-dir="$(PATH_TO_APP)/backend/meta" \
