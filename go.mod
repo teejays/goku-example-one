@@ -2,9 +2,9 @@ module github.com/teejays/goku-example-one
 
 go 1.18
 
-replace github.com/teejays/goku => /Users/tansari/Development/Personal/goku
+replace github.com/teejays/goku => ../goku
 
-replace github.com/teejays/goku-util => /Users/tansari/Development/Personal/goku-util
+replace github.com/teejays/goku-util => ../goku-util
 
 require (
 	github.com/doug-martin/goqu/v9 v9.18.0

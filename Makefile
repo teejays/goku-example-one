@@ -9,10 +9,13 @@ MAGENTA=\033[35;1m
 CYAN=\033[36;1m
 WHITE=\033[37;1m
 
+# Commands
 GO=go
 GOKU=goku
 
+# Paths
 CURRENT_DIR := $(shell pwd)
+
 PATH_TO_APP=.
 PATH_TO_MODELS=$(PATH_TO_APP)/models/example.json
 PATH_TO_GEN=../goku/generator
@@ -46,9 +49,7 @@ goku-generate:
 	@echo "$(YELLOW)Running Goku...$(RESET)"
 		$(GOKU) \
 		--generator-dir="$(PATH_TO_GEN)" \
-		--models-dir="$(PATH_TO_APP)/models" \
 		--models-json-file="$(PATH_TO_MODELS)" \
-		--templates-dir="$(PATH_TO_GEN)/templates" \
 		--app-root-dir="$(PATH_TO_APP)" \
 		--golang-root-dir="github.com/teejays/goku-example-one" \
 		--sql-yaml-schema=true --sql-yaml-schema-dir="$(PATH_TO_APP)/db/schema" \
