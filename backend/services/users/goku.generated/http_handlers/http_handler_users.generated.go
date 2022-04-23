@@ -3,6 +3,7 @@ package http_handlers_users
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/teejays/clog"
@@ -57,10 +58,11 @@ func GetUsersRoutes() []gopi.Route {
 		},
 		{
 			// API Route for GET users/user/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "users/user/list",
-			HandlerFunc: ListUserHandler,
+			Authenticate: true,
+			Method:       "GET",
+			Version:      1,
+			Path:         "users/user/list",
+			HandlerFunc:  ListUserHandler,
 		},
 		{
 			// API Route for GET users/user/query_by_text
@@ -77,6 +79,7 @@ func GetUsersRoutes() []gopi.Route {
 // RegisterUserHandler is the HTTP handler for the method RegisterUser.
 // The method's description: Create a new user
 func RegisterUserHandler(w http.ResponseWriter, r *http.Request) {
+	log.Print("RegisterUserHandler called....")
 	clog.Infof("[HTTP Handler] RegisterUserHandler starting...")
 	// Get the req from HTTP body
 	var req users_types.RegisterUserRequest

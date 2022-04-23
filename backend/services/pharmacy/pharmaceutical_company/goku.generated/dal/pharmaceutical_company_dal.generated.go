@@ -6,14 +6,13 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/postgres" // required for 'postgres' dialect
-
 	"github.com/teejays/clog"
+
 	"github.com/teejays/goku-util/client/db"
-	dalutil "github.com/teejays/goku-util/dalutil"
+	"github.com/teejays/goku-util/dalutil"
 	filterlib "github.com/teejays/goku-util/filter"
 	"github.com/teejays/goku-util/panics"
-
-	scalars "github.com/teejays/goku-util/scalars"
+	"github.com/teejays/goku-util/scalars"
 
 	dal_service "github.com/teejays/goku-example-one/backend/services/pharmacy/goku.generated/dal"
 	meta_entity "github.com/teejays/goku-example-one/backend/services/pharmacy/pharmaceutical_company/goku.generated/meta"

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { notification } from 'antd'
 
 const getBaseURL = (): string => {
-    return 'http://localhost:8080/v1/'
+    return `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/v1/`
 }
 const getEntityUrl = (entityInfo: EntityInfoCommon): string => {
     return getBaseURL() + entityInfo.serviceName + '/' + entityInfo.name

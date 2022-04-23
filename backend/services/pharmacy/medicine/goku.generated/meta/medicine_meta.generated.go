@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/teejays/clog"
+
 	"github.com/teejays/goku-util/client/db"
 	"github.com/teejays/goku-util/dalutil"
 	"github.com/teejays/goku-util/naam"

@@ -1,4 +1,21 @@
 services:
+  base:
+    # environment:
+      # - SSH_AUTH_SOCK=/ssh-agent
+    build:
+      context: .
+      dockerfile: base.Dockerfile
+      secrets:
+        - ssh_private_key
+    volumes:
+      - "./:/go-goku/app"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+      - PGPASSWORD=postgres
+      - DATABASE_HOST=database
+    networks:
+      - common-network
 
   frontend:
     image: node:latest
@@ -6,11 +23,14 @@ services:
       - backend
     ports:
       - 3000:3000
+    environment:
+      - REACT_APP_BACKEND_HOST=localhost
+      - REACT_APP_BACKEND_PORT=8080
     networks:
       - common-network
     volumes:
-      - "../:/goku"
-    command: ["yarn", "--cwd", "/app/frontend/admin", "start"]
+      - "./:/go-goku/app"
+    command: ["yarn", "--cwd", "/go-goku/app/frontend/admin", "start"]
 
   backend:
     image: golang:latest
@@ -22,12 +42,16 @@ services:
     networks:
       - common-network
     volumes:
-      - "../:/goku"
-    working_dir: /goku
-    #command: ["ls", "/goku"]
-    command: ["make", "-C", "goku-example-one", "run-backend"]
+      - "./:/go-goku/app"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+      - PGPASSWORD=postgres
+      - DATABASE_HOST=database
+    working_dir: /go-goku/app
+    # command: ["ls"]
+    command: ["make", "run-backend"]
 
-  
   database:
     image: postgres:alpine3.15
     ports:
@@ -35,13 +59,19 @@ services:
     networks:
       - common-network
     volumes:
-      - "../:/goku"
+      - "../:/app"
     environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+      - PGPASSWORD=postgres
     command: ["postgres"]
 
 networks:
   common-network:
+
+secrets:
+  ssh_private_key:
+    file: ~/.ssh/id_ed25519
 
 
     

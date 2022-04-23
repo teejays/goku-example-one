@@ -69,7 +69,7 @@ CMD_RM_MIGRATION=rm -rf $(PATH_TO_APP)/db/migration/future/*
 CMD_CREATE_MIGRATION_FOLDER_FUTURE=mkdir -p $(PATH_TO_APP)/db/migration/future/{}
 CMD_CREATE_MIGRATION_FOLDER_PRESENT=mkdir -p $(PATH_TO_APP)/db/migration/present/{}
 CMD_CREATE_MIGRATION_FOLDER_PAST=mkdir -p $(PATH_TO_APP)/db/migration/past/{}
-CMD_GENERATE_DB_MIGRATION=yamltodb -r "$(PATH_TO_APP)/db/schema/{}" -c "$(PATH_TO_APP)/db/pyrseas-yamltodb.config.yaml" -m -o $(PATH_TO_APP)/db/migration/future/{}/db.{}.migration.sql {}
+CMD_GENERATE_DB_MIGRATION=yamltodb -H ${DATABASE_HOST} -p 5432 -U ${POSTGRES_USERNAME} -r $(PATH_TO_APP)/db/schema/{} -c $(PATH_TO_APP)/db/pyrseas-yamltodb.config.yaml -m -o $(PATH_TO_APP)/db/migration/future/{}/db.{}.migration.sql {}
 generate-db-migration: create-dbs
 	@echo "$(YELLOW)Generating DB Migrations...$(RESET)"
 	$(CMD_RM_MIGRATION) && \
@@ -81,12 +81,12 @@ generate-db-migration: create-dbs
 # Run the migrations: Move the migration.sql file to 'present', run it, move it to 'past'
 CMD_MOVE_MIGRATIONS_TO_PRESENT=mv $(PATH_TO_APP)/db/migration/future/{}/db.{}.migration.sql $(PATH_TO_APP)/db/migration/present/{}/db.{}.migration.sql
 CMD_MOVE_MIGRATIONS_TO_PAST=mv $(PATH_TO_APP)/db/migration/present/{}/db.{}.migration.sql $(PATH_TO_APP)/db/migration/past/{}/db.{}.$$(date +%Y_%m_%d_%H%M%S).migration.sql
-CMD_RUN_MIGRATIONS=psql -U ${DB_USER} --dbname={} --single-transaction --file=$(PATH_TO_APP)/db/migration/present/{}/db.{}.migration.sql
+CMD_RUN_MIGRATIONS=psql -h ${DATABASE_HOST} -p 5432 --username=${POSTGRES_USERNAME} --dbname={} --single-transaction --file=$(PATH_TO_APP)/db/migration/present/{}/db.{}.migration.sql
 migrate-db:
 	@echo "$(YELLOW)Running DB Migrations...$(RESET)"
-	xargs -t -I{} $(CMD_MOVE_MIGRATIONS_TO_PRESENT) <$(PATH_TO_APP)/db/schema/databases.generated.txt && \
-	xargs -t -I{} $(CMD_RUN_MIGRATIONS) <$(PATH_TO_APP)/db/schema/databases.generated.txt && \
-	xargs -t -I{} $(CMD_MOVE_MIGRATIONS_TO_PAST) <$(PATH_TO_APP)/db/schema/databases.generated.txt
+	xargs -a $(PATH_TO_APP)/db/schema/databases.generated.txt -t -I{} $(CMD_MOVE_MIGRATIONS_TO_PRESENT) && \
+	xargs -a $(PATH_TO_APP)/db/schema/databases.generated.txt -t -I{} $(CMD_RUN_MIGRATIONS) && \
+	xargs -a $(PATH_TO_APP)/db/schema/databases.generated.txt -t -I{} $(CMD_MOVE_MIGRATIONS_TO_PAST)
 
 CMD_TO_DELETE_EMPTY_FILES_IN_DIR=find $(PATH_TO_APP)/db/migration/past/{} -size  0 -print -delete
 remove-empty-migration-files:
@@ -110,7 +110,7 @@ clean:
 CMD_CREATE_DB=./scripts/db_create.sh {}
 create-dbs:
 	@echo "$(YELLOW)Creating databases (if needed)...$(RESET)"
-	xargs -n 1 -I{} $(CMD_CREATE_DB) <$(PATH_TO_APP)/db/schema/databases.generated.txt DB_USER=${DB_USER}
+	@xargs -a $(PATH_TO_APP)/db/schema/databases.generated.txt -I{} $(CMD_CREATE_DB)
 
 # Create a test database for each service, named <service>_test
 CMD_CREATE_TEST_DB=./scripts/db_create.sh {}_test
@@ -144,15 +144,17 @@ db-start:
 	pg_ctl -D /usr/local/var/postgres start
 db-stop:
 	pg_ctl -D /usr/local/var/postgres stop
+
 db-start-if-stopped:
 ifeq ($(shell pg_ctl -D /usr/local/var/postgres status > /dev/null; echo $$?),3)
 	pg_ctl -D /usr/local/var/postgres start
 endif
+
 db-destroy:
 	xargs -n 1 -I{} dropdb {} <$(PATH_TO_APP)/db/schema/databases.generated.txt
 
 db-connect:
-	psql --db postgres
+	psql -h ${DATABASE_HOST} -p 5432 --username=${POSTGRES_USERNAME} --db=postgres
 
 CMD_DBTOYAML=dbtoyaml -c $(PATH_TO_APP)/db/pyrseas-dbtoyaml.config.yaml -r $(PATH_TO_APP)/db/schema/{} -m {}
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"sync"
 
 	"github.com/teejays/clog"
@@ -28,11 +29,13 @@ func mainErr() error {
 	var ctx = context.Background()
 
 	// Initialize the database
+	clog.Warnf("Initializing database connection to %s", "users")
 	err = db.InitDatabase(ctx, db.Options{
-		Host:     "localhost",
+		Host:     os.Getenv("DATABASE_HOST"),
 		Port:     db.DEFAULT_POSTGRES_PORT,
 		Database: "users",
-		User:     "tansari",
+		User:     os.Getenv("POSTGRES_USERNAME"),
+		Password: os.Getenv("POSTGRES_PASSWORD"),
 		SSLMode:  "disable",
 	})
 	if err != nil {
@@ -40,11 +43,13 @@ func mainErr() error {
 	}
 
 	// Initialize the database
+	clog.Warnf("Initializing database connection to %s", "pharmacy")
 	err = db.InitDatabase(ctx, db.Options{
-		Host:     "localhost",
+		Host:     os.Getenv("DATABASE_HOST"),
 		Port:     db.DEFAULT_POSTGRES_PORT,
 		Database: "pharmacy",
-		User:     "tansari",
+		User:     os.Getenv("POSTGRES_USERNAME"),
+		Password: os.Getenv("POSTGRES_PASSWORD"),
 		SSLMode:  "disable",
 	})
 	if err != nil {
@@ -52,6 +57,7 @@ func mainErr() error {
 	}
 
 	// Initialize the Server
+	clog.LogToSyslog = false
 
 	// Get the Routes
 	var routes []gopi.Route
@@ -71,7 +77,7 @@ func mainErr() error {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		var addr = "127.0.0.1"
+		var addr = "0.0.0.0"
 		var port = 8080
 		clog.Warnf("Starting HTTP server at %s:%d", addr, port)
 		err := gopi.StartServer(addr, port, routes, authMiddlewareFunc, preMiddlewareFuncs, postMiddlewareFuncs)
@@ -83,7 +89,7 @@ func mainErr() error {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		var addr = "127.0.0.1"
+		var addr = "0.0.0.0"
 		var port = 8081
 		clog.Warnf("Starting Gateway server at %s:%d", addr, port)
 		err := gateway.StartServer(addr, port, "backend/goku.generated/graphql/schema.generated.graphql")
