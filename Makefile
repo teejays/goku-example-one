@@ -24,30 +24,18 @@ DB_USER=${USER}
 # Group commands: do more than one thing at once
 all: clean goku-generate db-start-if-stopped create-dbs generate-db-migration migrate-db remove-empty-migration-files
 
-# Setup on a new machine
-setup: setup-yamltodb setup-postgres
-	brew install yamllint && \
-	brew install python-yq
+generate: clean goku-generate 
 
-setup-postgres:
-	brew install postgres
-
-setup-yamltodb: setup-postgres
-	python3 -m pip install --upgrade pip && \
-	brew install openssl && \
-	export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib" && \
-	export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include" && \
-	pip install psycopg2 && \
-	pip3 install Pyrseas
-
-help:
-	./bin/generator.bin --help
+check-env:
+ifndef GOKU_BIN_DIR
+	$(error GOKU_BIN_DIR is undefined)
+endif
 
 # Run Commands: 
 
-goku-generate:
+goku-generate: check-env clean
 	@echo "$(YELLOW)Running Goku...$(RESET)"
-		$(GOKU) \
+		${GOKU_BIN_DIR}/goku \
 		--generator-dir="$(PATH_TO_GEN)" \
 		--models-json-file="$(PATH_TO_MODELS)" \
 		--app-root-dir="$(PATH_TO_APP)" \
@@ -62,7 +50,10 @@ goku-generate:
 		--golang-http-handlers=true --golang-http-handlers-dir="$(PATH_TO_APP)/backend/httphandlers" \
 		--type-script-types=true --type-script-types-dir="$(PATH_TO_APP)/frontend/admin/src" \
 		--graphql-schema=true --graphql-schema-dir="$(PATH_TO_APP)/backend" \
-		--graphql-resolver=true --graphql-resolver-dir="$(PATH_TO_APP)/backend" \
+		--graphql-resolver=true --graphql-resolver-dir="$(PATH_TO_APP)/backend"
+
+docker-goku-generate:
+	docker compose exec builder make -C /go-goku/app goku-generate
 
 # Generate migration SQL scripts
 CMD_RM_MIGRATION=rm -rf $(PATH_TO_APP)/db/migration/future/*
@@ -123,13 +114,15 @@ setup-db-roles:
 	xargs -n 1 -I{} $(CMD_SETUP_DB_ROLES) <$(PATH_TO_APP)/db/schema/databases.generated.txt
 
 # app-run
-run-backend: db-start-if-stopped app-run-backend 
+run-backend: app-run-backend 
 run-frontend: app-build-frontend-admin app-run-frontend-admin
 
 app-run-backend:
+	GOKU_APP_PATH=$(PATH_TO_APP) \
 	$(GO) run $(PATH_TO_APP)/backend/main.go
-app-run-gateway:
-	$(GO) run $(PATH_TO_APP)/backend/gateway/gateway.go
+
+docker-app-run-backend:
+	docker compose exec builder make -C /go-goku app-backend-run
 
 PATH_TO_FRONTEND_ADMIN=$(PATH_TO_APP)/frontend/admin
 
@@ -160,3 +153,19 @@ CMD_DBTOYAML=dbtoyaml -c $(PATH_TO_APP)/db/pyrseas-dbtoyaml.config.yaml -r $(PAT
 
 dbtoyaml:
 	xargs -t -I{} $(CMD_DBTOYAML) <$(PATH_TO_APP)/db/schema/databases.generated.txt
+
+# Setup on a new machine
+setup: setup-yamltodb setup-postgres
+	brew install yamllint && \
+	brew install python-yq
+
+setup-postgres:
+	brew install postgres
+
+setup-yamltodb: setup-postgres
+	python3 -m pip install --upgrade pip && \
+	brew install openssl && \
+	export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib" && \
+	export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include" && \
+	pip install psycopg2 && \
+	pip3 install Pyrseas

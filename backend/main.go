@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"sync"
 
 	"github.com/teejays/clog"
@@ -86,13 +87,18 @@ func mainErr() error {
 		}
 	}()
 
+	gokuAppPath := os.Getenv("GOKU_APP_PATH")
+	if gokuAppPath == "" {
+		return fmt.Errorf("Env variabel GOKU_APP_PATH not set")
+	}
+
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		var addr = "0.0.0.0"
 		var port = 8081
 		clog.Warnf("Starting Gateway server at %s:%d", addr, port)
-		err := gateway.StartServer(addr, port, "backend/goku.generated/graphql/schema.generated.graphql")
+		err := gateway.StartServer(addr, port, filepath.Join(gokuAppPath, "backend/goku.generated/graphql/schema.generated.graphql"))
 		if err != nil {
 			log.Fatalf("HTTP Server Error: %s", err)
 		}

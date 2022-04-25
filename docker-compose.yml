@@ -1,10 +1,14 @@
 services:
-  base:
+  # Use this to build the app using the stable version of Goku
+  builder:
     # environment:
       # - SSH_AUTH_SOCK=/ssh-agent
     build:
       context: .
-      dockerfile: base.Dockerfile
+      dockerfile: Dockerfile.builder
+      args:
+        - GIT_CLONE_GOKU=1
+        - GIT_CLONE_GOKU_UTIL=1
       secrets:
         - ssh_private_key
     volumes:
@@ -19,8 +23,6 @@ services:
 
   frontend:
     image: node:latest
-    depends_on:
-      - backend
     ports:
       - 3000:3000
     environment:
@@ -32,25 +34,27 @@ services:
       - "./:/go-goku/app"
     command: ["yarn", "--cwd", "/go-goku/app/frontend/admin", "start"]
 
-  backend:
-    image: golang:latest
-    depends_on:
-      - database
-    ports:
-      - 8080:8080 # Rest API
-      - 8081:8081 # Gateway (Graphql)
-    networks:
-      - common-network
-    volumes:
-      - "./:/go-goku/app"
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USERNAME=postgres
-      - PGPASSWORD=postgres
-      - DATABASE_HOST=database
-    working_dir: /go-goku/app
-    # command: ["ls"]
-    command: ["make", "run-backend"]
+  # Commenting out backend service because let's have our builder service run it.
+  # backend:
+  #   image: golang:latest
+  #   depends_on:
+  #     - database
+  #   ports:
+  #     - 8080:8080 # Rest API
+  #     - 8081:8081 # Gateway (Graphql)
+  #   networks:
+  #     - common-network
+  #   volumes:
+  #     - "./:/go-goku/app"
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_USERNAME=postgres
+  #     - PGPASSWORD=postgres
+  #     - DATABASE_HOST=database
+  #     - GOKU_APP_PATH=/go-goku/app
+  #   working_dir: /go-goku/app
+  #   # command: ["ls"]
+  #   command: ["make", "run-backend"]
 
   database:
     image: postgres:alpine3.15
@@ -58,6 +62,7 @@ services:
       - 5432:5432
     networks:
       - common-network
+      - goku-network-database-dev
     volumes:
       - "../:/app"
     environment:
@@ -68,6 +73,8 @@ services:
 
 networks:
   common-network:
+  goku-network-database-dev:
+      name: goku-network-database-dev
 
 secrets:
   ssh_private_key:
