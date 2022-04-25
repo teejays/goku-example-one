@@ -9,6 +9,7 @@ import (
 	gopi "github.com/teejays/gopi"
 
 	"github.com/teejays/goku-util/errutil"
+	"github.com/teejays/goku-util/httputil"
 
 	drug_methods "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/methods"
 	drug_types "github.com/teejays/goku-example-one/backend/services/pharmacy/drug/goku.generated/types"
@@ -26,143 +27,163 @@ func GetPharmacyRoutes() []gopi.Route {
 	routes := []gopi.Route{
 		{
 			// API Route for POST pharmacy/drug
-			Method:      "POST",
-			Version:     1,
-			Path:        "pharmacy/drug",
-			HandlerFunc: AddDrugHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "pharmacy/drug",
+			HandlerFunc:  AddDrugHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for PUT pharmacy/drug
-			Method:      "PUT",
-			Version:     1,
-			Path:        "pharmacy/drug",
-			HandlerFunc: UpdateDrugHandler,
+			Method:       "PUT",
+			Version:      1,
+			Path:         "pharmacy/drug",
+			HandlerFunc:  UpdateDrugHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/drug
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/drug",
-			HandlerFunc: GetDrugHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/drug",
+			HandlerFunc:  GetDrugHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/drug/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/drug/list",
-			HandlerFunc: ListDrugHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/drug/list",
+			HandlerFunc:  ListDrugHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/drug/query_by_text
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/drug/query_by_text",
-			HandlerFunc: QueryByTextDrugHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/drug/query_by_text",
+			HandlerFunc:  QueryByTextDrugHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for POST pharmacy/medicine
-			Method:      "POST",
-			Version:     1,
-			Path:        "pharmacy/medicine",
-			HandlerFunc: AddMedicineHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "pharmacy/medicine",
+			HandlerFunc:  AddMedicineHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for PUT pharmacy/medicine
-			Method:      "PUT",
-			Version:     1,
-			Path:        "pharmacy/medicine",
-			HandlerFunc: UpdateMedicineHandler,
+			Method:       "PUT",
+			Version:      1,
+			Path:         "pharmacy/medicine",
+			HandlerFunc:  UpdateMedicineHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/medicine
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/medicine",
-			HandlerFunc: GetMedicineHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/medicine",
+			HandlerFunc:  GetMedicineHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/medicine/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/medicine/list",
-			HandlerFunc: ListMedicineHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/medicine/list",
+			HandlerFunc:  ListMedicineHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/medicine/query_by_text
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/medicine/query_by_text",
-			HandlerFunc: QueryByTextMedicineHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/medicine/query_by_text",
+			HandlerFunc:  QueryByTextMedicineHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for POST pharmacy/pharmaceutical_company
-			Method:      "POST",
-			Version:     1,
-			Path:        "pharmacy/pharmaceutical_company",
-			HandlerFunc: AddPharmaceuticalCompanyHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "pharmacy/pharmaceutical_company",
+			HandlerFunc:  AddPharmaceuticalCompanyHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for PUT pharmacy/pharmaceutical_company
-			Method:      "PUT",
-			Version:     1,
-			Path:        "pharmacy/pharmaceutical_company",
-			HandlerFunc: UpdatePharmaceuticalCompanyHandler,
+			Method:       "PUT",
+			Version:      1,
+			Path:         "pharmacy/pharmaceutical_company",
+			HandlerFunc:  UpdatePharmaceuticalCompanyHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/pharmaceutical_company
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/pharmaceutical_company",
-			HandlerFunc: GetPharmaceuticalCompanyHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/pharmaceutical_company",
+			HandlerFunc:  GetPharmaceuticalCompanyHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/pharmaceutical_company/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/pharmaceutical_company/list",
-			HandlerFunc: ListPharmaceuticalCompanyHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/pharmaceutical_company/list",
+			HandlerFunc:  ListPharmaceuticalCompanyHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/pharmaceutical_company/query_by_text
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/pharmaceutical_company/query_by_text",
-			HandlerFunc: QueryByTextPharmaceuticalCompanyHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/pharmaceutical_company/query_by_text",
+			HandlerFunc:  QueryByTextPharmaceuticalCompanyHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for POST pharmacy/product
-			Method:      "POST",
-			Version:     1,
-			Path:        "pharmacy/product",
-			HandlerFunc: AddProductHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "pharmacy/product",
+			HandlerFunc:  AddProductHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for PUT pharmacy/product
-			Method:      "PUT",
-			Version:     1,
-			Path:        "pharmacy/product",
-			HandlerFunc: UpdateProductHandler,
+			Method:       "PUT",
+			Version:      1,
+			Path:         "pharmacy/product",
+			HandlerFunc:  UpdateProductHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/product
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/product",
-			HandlerFunc: GetProductHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/product",
+			HandlerFunc:  GetProductHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/product/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/product/list",
-			HandlerFunc: ListProductHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/product/list",
+			HandlerFunc:  ListProductHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET pharmacy/product/query_by_text
-			Method:      "GET",
-			Version:     1,
-			Path:        "pharmacy/product/query_by_text",
-			HandlerFunc: QueryByTextProductHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "pharmacy/product/query_by_text",
+			HandlerFunc:  QueryByTextProductHandler,
+			Authenticate: true,
 		},
 	}
 
@@ -175,7 +196,7 @@ func AddDrugHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AddDrugHandler starting...")
 	// Get the req from HTTP body
 	var req drug_types.Drug
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -200,7 +221,7 @@ func UpdateDrugHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] UpdateDrugHandler starting...")
 	// Get the req from HTTP body
 	var req drug_types.UpdateDrugRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -327,7 +348,7 @@ func AddMedicineHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AddMedicineHandler starting...")
 	// Get the req from HTTP body
 	var req medicine_types.Medicine
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -352,7 +373,7 @@ func UpdateMedicineHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] UpdateMedicineHandler starting...")
 	// Get the req from HTTP body
 	var req medicine_types.UpdateMedicineRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -479,7 +500,7 @@ func AddPharmaceuticalCompanyHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AddPharmaceuticalCompanyHandler starting...")
 	// Get the req from HTTP body
 	var req pharmaceutical_company_types.PharmaceuticalCompany
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -504,7 +525,7 @@ func UpdatePharmaceuticalCompanyHandler(w http.ResponseWriter, r *http.Request) 
 	clog.Infof("[HTTP Handler] UpdatePharmaceuticalCompanyHandler starting...")
 	// Get the req from HTTP body
 	var req pharmaceutical_company_types.UpdatePharmaceuticalCompanyRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -631,7 +652,7 @@ func AddProductHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AddProductHandler starting...")
 	// Get the req from HTTP body
 	var req product_types.Product
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -656,7 +677,7 @@ func UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] UpdateProductHandler starting...")
 	// Get the req from HTTP body
 	var req product_types.UpdateProductRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return

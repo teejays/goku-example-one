@@ -364,7 +364,8 @@
                         "app": "ExampleApp",
                         "service": "Users",
                         "method": "RegisterUser"
-                    }
+                    },
+                    "is_public": true
                 },
                 {
                     "path": "users/authenticate",

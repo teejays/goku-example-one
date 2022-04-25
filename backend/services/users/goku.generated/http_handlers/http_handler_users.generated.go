@@ -23,52 +23,59 @@ func GetUsersRoutes() []gopi.Route {
 	routes := []gopi.Route{
 		{
 			// API Route for POST users/register
-			Method:      "POST",
-			Version:     1,
-			Path:        "users/register",
-			HandlerFunc: RegisterUserHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "users/register",
+			HandlerFunc:  RegisterUserHandler,
+			Authenticate: false,
 		},
 		{
 			// API Route for POST users/authenticate
-			Method:      "POST",
-			Version:     1,
-			Path:        "users/authenticate",
-			HandlerFunc: AuthenticateUserHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "users/authenticate",
+			HandlerFunc:  AuthenticateUserHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for POST users/user
-			Method:      "POST",
-			Version:     1,
-			Path:        "users/user",
-			HandlerFunc: AddUserHandler,
+			Method:       "POST",
+			Version:      1,
+			Path:         "users/user",
+			HandlerFunc:  AddUserHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for PUT users/user
-			Method:      "PUT",
-			Version:     1,
-			Path:        "users/user",
-			HandlerFunc: UpdateUserHandler,
+			Method:       "PUT",
+			Version:      1,
+			Path:         "users/user",
+			HandlerFunc:  UpdateUserHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET users/user
-			Method:      "GET",
-			Version:     1,
-			Path:        "users/user",
-			HandlerFunc: GetUserHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "users/user",
+			HandlerFunc:  GetUserHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET users/user/list
-			Method:      "GET",
-			Version:     1,
-			Path:        "users/user/list",
-			HandlerFunc: ListUserHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "users/user/list",
+			HandlerFunc:  ListUserHandler,
+			Authenticate: true,
 		},
 		{
 			// API Route for GET users/user/query_by_text
-			Method:      "GET",
-			Version:     1,
-			Path:        "users/user/query_by_text",
-			HandlerFunc: QueryByTextUserHandler,
+			Method:       "GET",
+			Version:      1,
+			Path:         "users/user/query_by_text",
+			HandlerFunc:  QueryByTextUserHandler,
+			Authenticate: true,
 		},
 	}
 
@@ -83,11 +90,9 @@ func RegisterUserHandler(w http.ResponseWriter, r *http.Request) {
 	var req users_types.RegisterUserRequest
 	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
-		clog.Errorf("[Unmarshaled Struct] %+v", req)
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
 	}
-	clog.Infof("[Unmarshaled Struct] %+v", req)
 
 	// Get the method's server for this service
 	s := users_methods.NewServer()
@@ -108,7 +113,7 @@ func AuthenticateUserHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AuthenticateUserHandler starting...")
 	// Get the req from HTTP body
 	var req users_types.AuthenticateRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -133,7 +138,7 @@ func AddUserHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] AddUserHandler starting...")
 	// Get the req from HTTP body
 	var req user_types.User
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
@@ -158,7 +163,7 @@ func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
 	clog.Infof("[HTTP Handler] UpdateUserHandler starting...")
 	// Get the req from HTTP body
 	var req user_types.UpdateUserRequest
-	err := gopi.UnmarshalJSONFromRequest(r, &req)
+	err := httputil.UnmarshalJSONFromRequest(r, &req)
 	if err != nil {
 		gopi.WriteError(w, http.StatusBadRequest, err, false, nil)
 		return
