@@ -14,9 +14,10 @@ GO=go
 GOKU=goku
 
 # Paths
-CURRENT_DIR := $(shell pwd)
+CURRENT_DIR=$(shell pwd)
 
 PATH_TO_APP=.
+APP_NAME=$(shell basename "${PWD}")
 PATH_TO_MODELS=$(PATH_TO_APP)/models/example.json
 PATH_TO_GEN=../goku/generator
 DB_USER=${USER}
@@ -26,14 +27,14 @@ all: clean goku-generate db-start-if-stopped create-dbs generate-db-migration mi
 
 generate: clean goku-generate 
 
-check-env:
+check-env-GOKU_BIN_DIR:
 ifndef GOKU_BIN_DIR
 	$(error GOKU_BIN_DIR is undefined)
 endif
 
 # Run Commands: 
 
-goku-generate: check-env clean
+goku-generate: check-env-GOKU_BIN_DIR clean
 	@echo "$(YELLOW)Running Goku...$(RESET)"
 		${GOKU_BIN_DIR}/goku \
 		--generator-dir="$(PATH_TO_GEN)" \
@@ -114,15 +115,21 @@ setup-db-roles:
 	xargs -n 1 -I{} $(CMD_SETUP_DB_ROLES) <$(PATH_TO_APP)/db/schema/databases.generated.txt
 
 # app-run
-run-backend: app-run-backend 
 run-frontend: app-build-frontend-admin app-run-frontend-admin
 
-app-run-backend:
-	GOKU_APP_PATH=$(PATH_TO_APP) \
-	$(GO) run $(PATH_TO_APP)/backend/main.go
+build-backend:
+	$(GO) build -o ${GOKU_BIN_DIR}/goku-app $(PATH_TO_APP)/backend/main.go
 
-docker-app-run-backend:
-	docker compose exec builder make -C /go-goku app-backend-run
+run-backend: check-env-GOKU_BIN_DIR build-backend
+	GOKU_APP_PATH=$(PATH_TO_APP) \
+	${GOKU_BIN_DIR}/goku-app
+
+docker-run-backend:
+ifdef ($(MAKE_GOKU_APP_DOCKER_BACKEND_SERVICE))
+	docker compose exec ${MAKE_GOKU_APP_DOCKER_BACKEND_SERVICE} make -C /go-goku backend-run
+else
+	docker compose exec builder make -C /go-goku backend-run
+endif
 
 PATH_TO_FRONTEND_ADMIN=$(PATH_TO_APP)/frontend/admin
 

@@ -21,8 +21,8 @@ import (
 	product_types "github.com/teejays/goku-example-one/backend/services/pharmacy/product/goku.generated/types"
 )
 
-// GetPharmacyRoutes returns all the routes for this namespace
-func GetPharmacyRoutes() []gopi.Route {
+// GetRoutes returns all the routes for this namespace
+func GetRoutes() []gopi.Route {
 
 	routes := []gopi.Route{
 		{

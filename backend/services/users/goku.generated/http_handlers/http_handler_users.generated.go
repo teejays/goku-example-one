@@ -17,8 +17,8 @@ import (
 	user_types "github.com/teejays/goku-example-one/backend/services/users/user/goku.generated/types"
 )
 
-// GetUsersRoutes returns all the routes for this namespace
-func GetUsersRoutes() []gopi.Route {
+// GetRoutes returns all the routes for this namespace
+func GetRoutes() []gopi.Route {
 
 	routes := []gopi.Route{
 		{
