@@ -12,16 +12,15 @@ import (
 	"github.com/teejays/clog"
 	gopi "github.com/teejays/gopi"
 
-	"github.com/teejays/goku-util/client/db"
-
 	"github.com/teejays/goku-example-one/backend/gateway"
+	db_connection "github.com/teejays/goku-example-one/backend/goku.generated/db_connection"
 	http_handlers "github.com/teejays/goku-example-one/backend/goku.generated/http_handlers"
 	"github.com/teejays/goku-example-one/backend/services/users/auth"
 )
 
 func main() {
 	if err := mainErr(); err != nil {
-		log.Fatalf("Error encountered: %s", err)
+		clog.Errorf("Error encountered: %s", err)
 	}
 }
 
@@ -38,30 +37,9 @@ func mainErr() error {
 		}
 	}()
 
-	// Initialize the database
-	clog.Warnf("Initializing database connection to database %s", "users")
-	err = db.InitDatabase(ctx, db.Options{
-		Host:     os.Getenv("DATABASE_HOST"),
-		Port:     db.DEFAULT_POSTGRES_PORT,
-		Database: "users",
-		User:     os.Getenv("POSTGRES_USERNAME"),
-		SSLMode:  "disable",
-	})
+	err = db_connection.InitDatabaseConnections(ctx)
 	if err != nil {
-		return fmt.Errorf("Initalizing database: %w", err)
-	}
-
-	// Initialize the database
-	clog.Warnf("Initializing database connection to %s", "pharmacy")
-	err = db.InitDatabase(ctx, db.Options{
-		Host:     os.Getenv("DATABASE_HOST"),
-		Port:     db.DEFAULT_POSTGRES_PORT,
-		Database: "pharmacy",
-		User:     os.Getenv("POSTGRES_USERNAME"),
-		SSLMode:  "disable",
-	})
-	if err != nil {
-		return fmt.Errorf("Initalizing database: %w", err)
+		return fmt.Errorf("Initializing Database connections: %w", err)
 	}
 
 	// Initialize the Server

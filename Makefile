@@ -49,6 +49,7 @@ goku-generate: check-env-GOKU_BIN_DIR clean
 		--golang-generics=true --golang-generics-dir="$(PATH_TO_APP)/backend" \
 		--golang-methods=true --golang-methods-dir="$(PATH_TO_APP)/backend/methods" \
 		--golang-http-handlers=true --golang-http-handlers-dir="$(PATH_TO_APP)/backend/httphandlers" \
+		--golang-db-connection=true --golang-db-connection-dir="$(PATH_TO_APP)/backend" \
 		--type-script-types=true --type-script-types-dir="$(PATH_TO_APP)/frontend/admin/src" \
 		--graphql-schema=true --graphql-schema-dir="$(PATH_TO_APP)/backend" \
 		--graphql-resolver=true --graphql-resolver-dir="$(PATH_TO_APP)/backend"
