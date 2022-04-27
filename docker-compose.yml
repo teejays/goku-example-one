@@ -64,7 +64,8 @@ services:
       - common-network
       - goku-network-database-dev
     volumes:
-      - "../:/app"
+      - "./:/go-goku/app"
+    working_dir: "/go-goku/app"
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USERNAME=postgres
