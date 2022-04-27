@@ -40,6 +40,9 @@ docker-up-services:
 
 docker-up: docker-up-builder docker-up-service
 
+docker-stop:
+	docker compose stop
+
 # Goku Generation
 
 docker-goku-generate:
