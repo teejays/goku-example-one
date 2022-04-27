@@ -23,39 +23,75 @@ PATH_TO_GEN=../goku/generator
 DB_USER=${USER}
 
 # Group commands: do more than one thing at once
-all: clean goku-generate db-start-if-stopped create-dbs generate-db-migration migrate-db remove-empty-migration-files
-
-generate: clean goku-generate 
+all: clean goku-generate 
 
 check-env-GOKU_BIN_DIR:
 ifndef GOKU_BIN_DIR
 	$(error GOKU_BIN_DIR is undefined)
 endif
 
-# Run Commands: 
-
-goku-generate: check-env-GOKU_BIN_DIR clean
-	@echo "$(YELLOW)Running Goku...$(RESET)"
-		${GOKU_BIN_DIR}/goku \
-		--generator-dir="$(PATH_TO_GEN)" \
-		--models-json-file="$(PATH_TO_MODELS)" \
-		--app-root-dir="$(PATH_TO_APP)" \
-		--app-go-module-name="github.com/teejays/goku-example-one" \
-		--sql-yaml-schema=true --sql-yaml-schema-dir="$(PATH_TO_APP)/db/schema" \
-		--golang-type-definitions=true --golang-type-definitions-dir="$(PATH_TO_APP)/backend/types" \
-		--golang-meta-info=true --golang-meta-info-dir="$(PATH_TO_APP)/backend/meta" \
- 		--golang-dal=true --golang-dal-dir="$(PATH_TO_APP)/backend/dal" \
-		--golang-type-filters=true --golang-type-filters-dir="$(PATH_TO_APP)/backend/filters" \
-		--golang-generics=true --golang-generics-dir="$(PATH_TO_APP)/backend" \
-		--golang-methods=true --golang-methods-dir="$(PATH_TO_APP)/backend/methods" \
-		--golang-http-handlers=true --golang-http-handlers-dir="$(PATH_TO_APP)/backend/httphandlers" \
-		--golang-db-connection=true --golang-db-connection-dir="$(PATH_TO_APP)/backend" \
-		--type-script-types=true --type-script-types-dir="$(PATH_TO_APP)/frontend/admin/src" \
-		--graphql-schema=true --graphql-schema-dir="$(PATH_TO_APP)/backend" \
-		--graphql-resolver=true --graphql-resolver-dir="$(PATH_TO_APP)/backend"
+# Generation
 
 docker-goku-generate:
 	docker compose exec builder make -C /go-goku/app goku-generate
+
+goku-generate: check-env-GOKU_BIN_DIR clean
+	@echo "$(YELLOW)Running Goku...$(RESET)"
+		${GOKU_BIN_DIR}/goku generate \
+		--models-json-file="$(PATH_TO_MODELS)" \
+		--app-root-dir="$(PATH_TO_APP)" \
+		--app-go-module-name="github.com/teejays/goku-example-one" \
+		--sql-yaml-schema=true \
+		--golang-type-definitions=true \
+		--golang-meta-info=true \
+ 		--golang-dal=true \
+		--golang-type-filters=true \
+		--golang-generics=true \
+		--golang-methods=true \
+		--golang-http-handlers=true \
+		--golang-db-connection=true \
+		--type-script-types=true \
+		--graphql-schema=true \
+		--graphql-resolver=true \
+
+
+# Database 
+
+docker-migrate-db:
+	docker compose exec builder make db-migrate
+
+migrate-db: create-dbs generate-db-migration migrate-db remove-empty-migration-files
+
+# Backend
+
+docker-build-backend:
+	docker compose exec builder make build-backend
+
+docker-run-backend:
+	docker compose exec builder make run-backend
+
+
+build-backend: check-env-GOKU_BIN_DIR
+	$(GO) build -o ${GOKU_BIN_DIR}/goku-app $(PATH_TO_APP)/backend/main.go
+
+run-backend: check-env-GOKU_BIN_DIR build-backend
+	GOKU_APP_PATH=$(PATH_TO_APP) \
+	${GOKU_BIN_DIR}/goku-app
+
+# Frontend
+PATH_TO_FRONTEND_ADMIN=$(PATH_TO_APP)/frontend/admin
+
+docker-build-frontend-admin:
+	docker compose exec builder make build-frontend-admin
+
+docker-run-frontend-admin:
+	docker compose up --build frontend
+
+build-frontend-admin:
+	yarn --cwd=$(PATH_TO_FRONTEND_ADMIN)
+
+run-frontend-admin: build-frontend-admin
+	yarn --cwd=$(PATH_TO_FRONTEND_ADMIN) start
 
 # Generate migration SQL scripts
 CMD_RM_MIGRATION=rm -rf $(PATH_TO_APP)/db/migration/future/*
@@ -115,41 +151,14 @@ CMD_SETUP_DB_ROLES=psql -d {} -c "CREATE ROLE postgres WITH LOGIN SUPERUSER CREA
 setup-db-roles:
 	xargs -n 1 -I{} $(CMD_SETUP_DB_ROLES) <$(PATH_TO_APP)/db/schema/databases.generated.txt
 
-# app-run
-run-frontend: app-build-frontend-admin app-run-frontend-admin
 
-build-backend:
-	$(GO) build -o ${GOKU_BIN_DIR}/goku-app $(PATH_TO_APP)/backend/main.go
 
-run-backend: check-env-GOKU_BIN_DIR build-backend
-	GOKU_APP_PATH=$(PATH_TO_APP) \
-	${GOKU_BIN_DIR}/goku-app
-
-docker-run-backend:
-ifdef ($(MAKE_GOKU_APP_DOCKER_BACKEND_SERVICE))
-	docker compose exec ${MAKE_GOKU_APP_DOCKER_BACKEND_SERVICE} make -C /go-goku backend-run
-else
-	docker compose exec builder make -C /go-goku backend-run
-endif
-
-PATH_TO_FRONTEND_ADMIN=$(PATH_TO_APP)/frontend/admin
-
-app-build-frontend-admin:
-	yarn --cwd=$(PATH_TO_FRONTEND_ADMIN)
-
-app-run-frontend-admin:
-	yarn --cwd=$(PATH_TO_FRONTEND_ADMIN) start
 
 # Reference Commands: not needed to run
 db-start:
 	pg_ctl -D /usr/local/var/postgres start
 db-stop:
 	pg_ctl -D /usr/local/var/postgres stop
-
-db-start-if-stopped:
-ifeq ($(shell pg_ctl -D /usr/local/var/postgres status > /dev/null; echo $$?),3)
-	pg_ctl -D /usr/local/var/postgres start
-endif
 
 db-destroy:
 	xargs -n 1 -I{} dropdb {} <$(PATH_TO_APP)/db/schema/databases.generated.txt

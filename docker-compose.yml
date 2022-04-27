@@ -32,7 +32,7 @@ services:
       - common-network
     volumes:
       - "./:/go-goku/app"
-    command: ["yarn", "--cwd", "/go-goku/app/frontend/admin", "start"]
+    command: ["yarn", "--cwd", "/go-goku/app/frontend/admin"]
 
   # Commenting out backend service because let's have our builder service run it.
   # backend:
